@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+
+TESTS=$(find tests -name test.sh | sort)
+TEST_COUNT=$(echo "TESTS" | wc -l)
+
+i=1
+for TEST in $(echo "$TESTS"); do
+    echo
+    echo "> Running test: $TEST"
+    (
+        cd $(dirname "$TEST")
+        ./$(basename "$TEST") || (echo "> TEST $i of $TEST_COUNT FAILED"; exit 1)
+    )
+    i=$((i+1))
+done
+
+echo
+echo "> Congratulations, all feature tests passed."
