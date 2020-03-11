@@ -1,5 +1,5 @@
-ifeq ($(shell test -e src/.program && echo ok || echo fail), fail)
-$(error Please run ./configure first)
+ifeq ($(shell test -e .template/.program && echo ok || echo fail), fail)
+$(error Please run '.template/configure' first)
 endif
 
 SHELL := bash
@@ -7,7 +7,7 @@ SHELL := bash
 export PATH := $(shell pwd)/scripts:$(PATH)
 export PATH := $(shell pwd)/bin:$(PATH)
 
-PROGRAM := $(shell cat src/.program)
+PROGRAM := $(shell cat .template/.program)
 
 BUILD_OS := $(shell uname | tr '[:upper:]' '[:lower:]')
 BUILD_ARCH := amd64
@@ -55,5 +55,11 @@ clean:
 
 .PHONY: clean-template
 clean-template: clean
-	rm -rfv src/vendor/* src/.home src/.program src/.registry src/.runtime.log src/go.mod
+	rm -rfv \
+		src/go.mod \
+		src/vendor/* \
+		.template/golang-build-environment/.home \
+		.template/.program \
+		.template/.registry \
+		.template/.runtime.log
 	git clean -fx

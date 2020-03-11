@@ -1,5 +1,7 @@
-PROGRAM := $(shell cat .program)
-SHELL := $(shell pwd)/bash.sh
+PROGRAM := $(shell cat ../.template/.program)
+
+# Everything below runs in a Golang build container
+SHELL := $(shell pwd)/../.template/golang-build-environment/bash.sh
 
 .PHONY: default
 default: all
@@ -40,4 +42,4 @@ vendor:
 
 .PHONY: clean
 clean:
-	rm -rfv bin/*
+	rm -rfv bin

@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# Expected to be executed from the `src/` directory, so temporarily cd:
+cd ../.template/golang-build-environment
+test $? -eq 0 || exit 1
+
+REGISTRY=$(cat ../.registry)
+PROGRAM=$(cat ../.program)
+
 if [ -e "$(which podman)" ]; then
     RUNTIME=podman
 elif [ -e "$(which docker)" ]; then
@@ -8,9 +15,6 @@ else
     echo "Could not find container runtime, install Podman or Docker."
     exit 1
 fi
-
-REGISTRY=$(cat .registry)
-PROGRAM=$(cat .program)
 
 function tag {
     if [ "$(uname)" == "Darwin" ]; then
@@ -64,13 +68,17 @@ fi
 
 mkdir -p .home
 
+# cd back to the `src/` directory:
+cd ../../src
+
 exec $RUNTIME run \
     --rm \
     -it \
     $USERNS \
-    -e HOME=/src/.home \
     -e USER=$(whoami) \
     -e USERNAME=$(whoami) \
+    -v "$(pwd)/../.template/golang-build-environment/.home:/home/build-env:z" \
+    -e HOME=/home/build-env \
     -v "$(pwd):/src:z" \
     --workdir=/src \
     $IMAGE \
