@@ -7,7 +7,7 @@ SHELL := bash
 export PATH := $(shell pwd)/scripts:$(PATH)
 export PATH := $(shell pwd)/bin:$(PATH)
 
-PROGRAM := $(shell cat .template/.program)
+export PROGRAM := $(shell cat .template/.program)
 
 BUILD_OS := $(shell uname | tr '[:upper:]' '[:lower:]')
 BUILD_ARCH := amd64
