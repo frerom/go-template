@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -e "$(which podman)" ]; then
+    echo podman
+elif [ -e "$(which docker)" ]; then
+    echo docker
+else
+    echo "Could not find container runtime, install Podman or Docker." 1>&2
+    exit 1
+fi

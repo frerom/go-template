@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
+CONTAINER_RUNTIME=$(get-container-runtime)
+
+$CONTAINER_RUNTIME run --rm $PROGRAM_IMAGE

@@ -1,0 +1,21 @@
+SHELL := bash
+
+PROGRAM := $(shell cat ../.template/.program)
+CONTAINER_RUNTIME := $(shell ../scripts/get-container-runtime)
+
+.PHONY: default
+default: images
+
+bin/$(PROGRAM)-linux-amd64:
+	$(MAKE) -f Makefile $@
+
+.PHONY: images
+images: image-amd64
+
+# TODO: % instead of amd64
+.PHONY: image-amd64
+image-amd64: bin/$(PROGRAM)-linux-amd64
+	$(CONTAINER_RUNTIME) build \
+		--build-arg BINARY=$(PROGRAM)-linux-amd64 \
+		-t $(PROGRAM):amd64-latest \
+		.

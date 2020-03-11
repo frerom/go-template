@@ -7,14 +7,7 @@ test $? -eq 0 || exit 1
 REGISTRY=$(cat ../.registry)
 PROGRAM=$(cat ../.program)
 
-if [ -e "$(which podman)" ]; then
-    RUNTIME=podman
-elif [ -e "$(which docker)" ]; then
-    RUNTIME=docker
-else
-    echo "Could not find container runtime, install Podman or Docker."
-    exit 1
-fi
+RUNTIME=$(../../scripts/get-container-runtime)
 
 function tag {
     if [ "$(uname)" == "Darwin" ]; then

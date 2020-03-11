@@ -10,6 +10,8 @@ export PATH := $(shell pwd)/bin:$(PATH)
 export PROGRAM := $(shell cat .template/.program)
 
 BUILD_OS := $(shell uname | tr '[:upper:]' '[:lower:]')
+
+# TODO Auto detect to support building on ARM
 BUILD_ARCH := amd64
 
 .PHONY: default
@@ -18,9 +20,28 @@ default: all
 .PHONY: all
 all:
 	$(MAKE) clean
+	@echo
+	@echo
+	@echo "Building and unit testing the Golang code"
+	@echo "in a containerized build environment"
+	@echo "========================================="
+	@echo
 	$(MAKE) -C src
+	@echo
+	@echo
+	@echo "Running native feature tests on your current platform"
+	@echo "====================================================="
+	@echo
 	$(MAKE) test-features
 	@echo
+	@echo
+	@echo "Running containerized feature tests"
+	@echo "==================================="
+	@echo
+	$(MAKE) test-features-container
+	@echo
+	@echo
+	@echo "============================================="
 	@echo "Complete project build finished successfully!"
 
 bin:
@@ -47,6 +68,13 @@ test-features-repeatedly:
 		read; \
 		clear; \
 		done'
+
+.PHONY: test-features-container
+test-features-container:
+	$(MAKE) -C src -f Makefile.images
+	PROGRAM=run-program-container \
+			PROGRAM_IMAGE=$(PROGRAM):$(BUILD_ARCH)-latest
+			run-feature-tests
 
 .PHONY: clean
 clean:
