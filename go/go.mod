@@ -1,4 +1,4 @@
-module example.com/foo
+module example.com/foo/go
 
 go 1.14
 
