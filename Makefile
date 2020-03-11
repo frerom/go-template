@@ -1,4 +1,4 @@
-ifeq ($(shell test -e go/.program && echo ok || echo fail), fail)
+ifeq ($(shell test -e src/.program && echo ok || echo fail), fail)
 $(error Please run ./configure first)
 endif
 
@@ -7,7 +7,7 @@ SHELL := bash
 export PATH := $(shell pwd)/scripts:$(PATH)
 export PATH := $(shell pwd)/bin:$(PATH)
 
-PROGRAM := $(shell cat go/.program)
+PROGRAM := $(shell cat src/.program)
 
 BUILD_OS := $(shell uname | tr '[:upper:]' '[:lower:]')
 BUILD_ARCH := amd64
@@ -18,7 +18,7 @@ default: all
 .PHONY: all
 all:
 	$(MAKE) clean
-	$(MAKE) -C go
+	$(MAKE) -C src
 	$(MAKE) test-features
 	@echo
 	@echo "Complete project build finished successfully!"
@@ -29,8 +29,8 @@ bin:
 # Not really phony but I want to rebuild each time:
 .PHONY: bin/$(PROGRAM)
 bin/$(PROGRAM): | bin
-	$(MAKE) -C go bin/$(PROGRAM)-$(BUILD_OS)-$(BUILD_ARCH)
-	cp go/bin/$(PROGRAM)-$(BUILD_OS)-$(BUILD_ARCH) bin/$(PROGRAM)
+	$(MAKE) -C src bin/$(PROGRAM)-$(BUILD_OS)-$(BUILD_ARCH)
+	cp src/bin/$(PROGRAM)-$(BUILD_OS)-$(BUILD_ARCH) bin/$(PROGRAM)
 
 # The feature tests are language agnostic and only requires '$(PROGRAM)' to be
 # found on the $PATH.
@@ -50,10 +50,10 @@ test-features-repeatedly:
 
 .PHONY: clean
 clean:
-	$(MAKE) -C go clean
+	$(MAKE) -C src clean
 	rm -rf bin
 
 .PHONY: clean-template
 clean-template: clean
-	rm -rfv go/vendor/* go/.home go/.program go/.registry go/.runtime.log go/go.mod
+	rm -rfv src/vendor/* src/.home src/.program src/.registry src/.runtime.log src/go.mod
 	git clean -fx

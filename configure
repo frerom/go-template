@@ -3,14 +3,14 @@ set -e
 
 read -p "Program name [foo]: " PROGRAM
 PROGRAM=${PROGRAM:-foo}
-echo $PROGRAM > go/.program
+echo $PROGRAM > src/.program
 
 read -p "Go module [example.com/${PROGRAM}]: " GOMODULE
 GOMODULE=${GOMODULE:-example.com/${PROGRAM}}
-echo "module ${GOMODULE}" > go/go.mod
-echo >> go/go.mod
-cat go/go.mod.in >> go/go.mod
+echo "module ${GOMODULE}" > src/go.mod
+echo >> src/go.mod
+cat src/go.mod.in >> src/go.mod
 
 read -p "Container image registry (with trailing '/', empty for local images only) []: " REGISTRY
 REGISTRY=${REGISTRY:-}
-echo $REGISTRY > go/.registry
+echo $REGISTRY > src/.registry

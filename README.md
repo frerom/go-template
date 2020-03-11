@@ -35,6 +35,6 @@ terminal windows/panes next to your favorite editor:
 
 - `make test-features-repeatedly` - just hit the return key to build and run
   all the feature tests.
-- `cd go`
+- `cd src`
     - `make test-continously` to run the unit tests directly on file change.
     - `make lint-continously` to run the linter directly on file change.
