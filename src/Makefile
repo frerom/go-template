@@ -23,13 +23,13 @@ test:
 test-continously:
 	filewatcher -x ./Makefile -x '**/.*.sw*' bash -c 'clear; go test'
 
-SRC := $(shell find . -maxdepth 1 -name '*.go' | xargs)
+SRC := $(shell find . -name '*.go' | xargs)
 
 bin/$(PROGRAM)-linux-amd64: $(SRC)
-	GOOS=linux GOARCH=amd64 go build -o $@ $(SRC)
+	GOOS=linux GOARCH=amd64 go build -o $@ ./...
 
 bin/$(PROGRAM)-darwin-amd64: $(SRC)
-	GOOS=darwin GOARCH=amd64 go build -o $@ $(SRC)
+	GOOS=darwin GOARCH=amd64 go build -o $@ ./...
 
 .PHONY: build
 build: bin/$(PROGRAM)-linux-amd64 bin/$(PROGRAM)-darwin-amd64
