@@ -6,16 +6,13 @@ CONTAINER_RUNTIME := $(shell ../scripts/get-container-runtime)
 .PHONY: default
 default: images
 
-bin/$(PROGRAM)-linux-amd64:
-	$(MAKE) -f Makefile $@
-
 .PHONY: images
-images: image-amd64
+images: image(amd64)
 
-# TODO: % instead of amd64
-.PHONY: image-amd64
-image-amd64: bin/$(PROGRAM)-linux-amd64
+.PHONY: image(%)
+image(%):
+	$(MAKE) -f Makefile bin/$(PROGRAM)-linux-$%
 	$(CONTAINER_RUNTIME) build \
-		--build-arg BINARY=$(PROGRAM)-linux-amd64 \
-		-t $(PROGRAM):amd64-latest \
+		--build-arg BINARY=$(PROGRAM)-linux-$% \
+		-t $(PROGRAM):linux-$%-latest \
 		.

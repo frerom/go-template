@@ -73,7 +73,7 @@ test-features-repeatedly:
 test-features-container:
 	$(MAKE) -C src -f Makefile.images
 	PROGRAM=run-program-container \
-			PROGRAM_IMAGE=$(PROGRAM):$(BUILD_ARCH)-latest
+			PROGRAM_IMAGE=$(PROGRAM):linux-$(BUILD_ARCH)-latest
 			run-feature-tests
 
 .PHONY: clean
