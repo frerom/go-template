@@ -1,5 +1,5 @@
-NAME_OF_PROJECT
-===============
+Foo
+===
 
 Project Template
 ----------------
