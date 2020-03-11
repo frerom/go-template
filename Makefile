@@ -29,14 +29,20 @@ all:
 	$(MAKE) -C src
 	@echo
 	@echo
+	@echo "Building program container images"
+	@echo "================================="
+	@echo
+	$(MAKE) -C src -f Makefile.images
+	@echo
+	@echo
 	@echo "Running native feature tests on your current platform"
 	@echo "====================================================="
 	@echo
 	$(MAKE) test-features
 	@echo
 	@echo
-	@echo "Running containerized feature tests"
-	@echo "==================================="
+	@echo "Running containerized feature tests for your architecture"
+	@echo "========================================================="
 	@echo
 	$(MAKE) test-features-container
 	@echo
@@ -71,7 +77,7 @@ test-features-repeatedly:
 
 .PHONY: test-features-container
 test-features-container:
-	$(MAKE) -C src -f Makefile.images
+	$(MAKE) -C src -f Makefile.images "image($(BUILD_ARCH))"
 	PROGRAM=run-program-container \
 			PROGRAM_IMAGE=$(PROGRAM):linux-$(BUILD_ARCH)-latest
 			run-feature-tests

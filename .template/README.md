@@ -8,8 +8,9 @@ Features
   project setup
 - The container image may optionally be cached in a container registry for
   blazingly fast workflows, both for CI servers and developers
-- Support for Mac OS and Linux (both amd64 arch)
-- Support for Docker and Podman container runtimes
+- Support for Mac OS and Linux
+- Support for Docker and Podman build container runtimes (AMD64)
+- Support for producing Linux (AMD64 and ARM32v6) program container images
 - Linting
 - Unit testing (runs containerized on Linux)
 - Feature testing (runs the native binary)

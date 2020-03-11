@@ -7,7 +7,9 @@ CONTAINER_RUNTIME := $(shell ../scripts/get-container-runtime)
 default: images
 
 .PHONY: images
-images: image(amd64)
+images: \
+	image(amd64) \
+	image(arm32v6)
 
 .PHONY: image(%)
 image(%):

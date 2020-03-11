@@ -30,11 +30,18 @@ SRC := $(shell find . -name '*.go' | xargs)
 bin/$(PROGRAM)-linux-amd64: $(SRC)
 	GOOS=linux GOARCH=amd64 go build -o $@ ./...
 
+bin/$(PROGRAM)-linux-arm32v6: $(SRC)
+	@# For Raspberry Pi 1, etc.
+	GOOS=linux GOARCH=arm GOARM=6 go build -o $@ ./...
+
 bin/$(PROGRAM)-darwin-amd64: $(SRC)
 	GOOS=darwin GOARCH=amd64 go build -o $@ ./...
 
 .PHONY: build
-build: bin/$(PROGRAM)-linux-amd64 bin/$(PROGRAM)-darwin-amd64
+build: \
+	bin/$(PROGRAM)-linux-amd64 \
+	bin/$(PROGRAM)-linux-arm32v6 \
+	bin/$(PROGRAM)-darwin-amd64
 
 .PHONY: vendor
 vendor:

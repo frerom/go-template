@@ -19,3 +19,22 @@ terminal windows/panes next to your favorite editor:
 - `cd src`
     - `make test-continously` to run the unit tests directly on file change.
     - `make lint-continously` to run the linter directly on file change.
+
+Building
+--------
+
+`make build` will compile Go binaries for all supported architectures.
+
+
+Program Container Images
+------------------------
+
+The `src/Makefile.images` file is for building slim Linux container images that
+run your program.
+
+- Build for all architectures:
+    - `make -f Makefile.images`
+- Build only for AMD64:
+    - `make -f Makefile.images "image(amd64)"`
+- Build only for ARM32v6 (Raspberry Pi 1 for example):
+    - `make -f Makefile.images "image(arm32v6)"`
