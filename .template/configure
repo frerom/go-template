@@ -7,8 +7,8 @@ read -p "Program name [foo]: " PROGRAM
 PROGRAM=${PROGRAM:-foo}
 echo $PROGRAM > .template/.program
 
-read -p "Go module [example.com/${PROGRAM}]: " GOMODULE
-GOMODULE=${GOMODULE:-example.com/${PROGRAM}}
+read -p "Go module [example.com/${PROGRAM}/go]: " GOMODULE
+GOMODULE=${GOMODULE:-example.com/${PROGRAM}/go}
 echo "module ${GOMODULE}" > go/go.mod
 echo >> go/go.mod
 cat .template/go.mod.in >> go/go.mod
