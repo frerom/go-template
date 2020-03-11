@@ -9,9 +9,9 @@ echo $PROGRAM > .template/.program
 
 read -p "Go module [example.com/${PROGRAM}]: " GOMODULE
 GOMODULE=${GOMODULE:-example.com/${PROGRAM}}
-echo "module ${GOMODULE}" > src/go.mod
-echo >> src/go.mod
-cat .template/go.mod.in >> src/go.mod
+echo "module ${GOMODULE}" > go/go.mod
+echo >> go/go.mod
+cat .template/go.mod.in >> go/go.mod
 
 read -p "Container image registry (with trailing '/', empty for local images only) []: " REGISTRY
 REGISTRY=${REGISTRY:-}

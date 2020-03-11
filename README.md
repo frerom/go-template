@@ -16,7 +16,7 @@ terminal windows/panes next to your favorite editor:
 
 - `make test-features-repeatedly` - just hit the return key to build and run
   all the feature tests.
-- `cd src`
+- `cd go`
     - `make test-continously` to run the unit tests directly on file change.
     - `make lint-continously` to run the linter directly on file change.
 
@@ -29,7 +29,7 @@ Building
 Program Container Images
 ------------------------
 
-The `src/Makefile.images` file is for building slim Linux container images that
+The `go/Makefile.images` file is for building slim Linux container images that
 run your program.
 
 - Build for all architectures:

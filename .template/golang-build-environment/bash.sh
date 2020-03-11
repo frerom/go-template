@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Expected to be executed from the `src/` directory, so temporarily cd:
+# Expected to be executed from the `go/` directory, so temporarily cd:
 cd ../.template/golang-build-environment
 test $? -eq 0 || exit 1
 
@@ -61,8 +61,8 @@ fi
 
 mkdir -p .home
 
-# cd back to the `src/` directory:
-cd ../../src
+# cd back to the `go/` directory:
+cd ../../go
 
 exec $RUNTIME run \
     --rm \
