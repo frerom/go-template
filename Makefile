@@ -56,3 +56,4 @@ clean:
 .PHONY: clean-template
 clean-template: clean
 	rm -rfv go/vendor/* go/.home go/.program go/.registry go/.runtime.log go/go.mod
+	git clean -fx
